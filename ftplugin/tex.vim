@@ -27,7 +27,7 @@ function! s:RunTexToText()
 
     try 
         call delete(newFileName)
-        execute "e " . newFileName 
+        execute "silent e " . newFileName 
     catch
         echom "There was an error saving the file."
         echom v:exception
