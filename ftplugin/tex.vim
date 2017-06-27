@@ -1,3 +1,9 @@
+nnoremap <silent> <leader>ttt :<c-u>call <SID>RunTexToText()<cr>
+
+if exists('*s:RunTexToText')
+   finish 
+endif
+
 function! s:RunTexToText()
     " Store the previous directory to not mess up your workflow
     let previousWorkingDirectory = getcwd()
@@ -22,12 +28,13 @@ function! s:RunTexToText()
     endtry
 
     " yank entire file into 'a' register
-    %y a
+    silent %y a
     let newFileName = currentFileNameNoExt . ".txt"
 
     try 
-        call delete(newFileName)
+        silent call delete(newFileName)
         execute "silent e " . newFileName 
+        echom "successfully created file " . newFileName
     catch
         echom "There was an error saving the file."
         echom v:exception
@@ -35,7 +42,7 @@ function! s:RunTexToText()
     endtry
 
     " Put the contents of the entire file at the beginning of the file.
-    1put! a
+    silent 1put! a
 
     setlocal filetype=text
     setlocal noignorecase
@@ -109,7 +116,7 @@ function! s:RunTexToText()
     silent execute "cd " . fnameescape(previousWorkingDirectory)
 
     "write new text file.
-    silent w
+    silent w!
     " Change back to original buffer.
     silent execute "buffer " . currentFileNameWithExt
 
@@ -120,5 +127,4 @@ function! s:RunTexToText()
     echom "Finished transformed tex to text document."
 endfunction
 
-nnoremap <silent> <leader>ttt :<c-u>call <SID>RunTexToText()<cr>
 
