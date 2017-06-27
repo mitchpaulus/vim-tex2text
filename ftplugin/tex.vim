@@ -8,7 +8,7 @@ function! s:RunTexToText()
     " Store the previous directory to not mess up your workflow
     let previousWorkingDirectory = getcwd()
     let currentFileNameWithExt = expand("%:p")
-    let currentFileNameNoExt = expand("%:r")
+    let currentFileNameNoExt = expand("%:t:r")
 
     let previousARegister = @a
     let previousLastSearch = @/
@@ -20,6 +20,7 @@ function! s:RunTexToText()
         if !isdirectory("TransformedTexFiles")
             call mkdir("TransformedTexFiles") 
         endif
+        echom "Successfully made directory TransformedTexFiles"
         cd TransformedTexFiles
     catch
         echom "Could not create TransformedTexFiles directory"
@@ -112,11 +113,12 @@ function! s:RunTexToText()
     " Delete all empty lines
     silent g/^\s*$/d
 
+    "write new text file.
+    silent w
+
     " Change current directory back.
     silent execute "cd " . fnameescape(previousWorkingDirectory)
 
-    "write new text file.
-    silent w!
     " Change back to original buffer.
     silent execute "buffer " . currentFileNameWithExt
 
