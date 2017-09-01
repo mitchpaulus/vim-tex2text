@@ -121,6 +121,10 @@ function! s:RunTexToText()
     " Delete all empty lines
     silent g/^\s*$/d
 
+    " Copy the file to the clipboard.
+    silent normal! gg"*yG
+    silent normal! gg"+yG
+
     "write new text file.
     silent w
 
