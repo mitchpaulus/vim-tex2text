@@ -42,16 +42,22 @@ function! s:RunTexToText()
         finish
     endtry
 
-    " Put the contents of the entire file at the beginning of the file.
+    " Put the contents of the entire file (stored in register a)
+    " at the beginning of the file.
     silent 1put! a
 
     setlocal filetype=text
     setlocal noignorecase
     setlocal magic
 
-    let environmentsToDelete = ['landscape','figure','table','equation','multline','array']
+    let environmentsToDelete = ['landscape','figure','table','equation','multline','array','algorithm']
     let singleLineCommandsToDelete = ['chapter','section','subsection','subsubsection','usepackage','newcommand','RequirePackage']
-    let surroundingCommandsToLeaveInnerText = ['textit','textbf','textsuperscript','textsubscript']
+    let surroundingCommandsToLeaveInnerText = ['textit','textbf','textsuperscript','textsubscript','num']
+    let commandsToDeleteInPlace = ['footnote']
+
+    for commandToDeleteInPlace in commandsToDeleteInPlace
+        execute 'silent %s/\\' . commandToDeleteInPlace . '{\_[^{}]\{-}}//e'
+    endfor
 
     for singleLineCommand in singleLineCommandsToDelete
         execute 'silent %s/\s*\\' . singleLineCommand . '{.*//e'
