@@ -88,6 +88,7 @@ function! s:RunTexToText()
 
     silent %s/\\&/\&/ge
     silent %s/\\%/%/ge
+    silent %s/\\\$/$/ge
     silent %s/\\figref{}/Figure/ge
     silent %s/\\tableref{}/Table/ge
     silent %s/\\eqreftext{}/Equation/ge
@@ -98,16 +99,17 @@ function! s:RunTexToText()
     " Replace in-line equations with singular proper noun.
     silent %s/\V\\(\_.\{-}\\)/Mitch/ge
     " Replace single line commands.
-    silent %s/^\s*\\\S\+{.*}\s*$//e
+    silent %s/^\s*\\[[:alnum:]]\{-}{\_[^{}]\{-}}\s\{-}$//e
+    "silent %s/^\s*\\\S\+{\_.\{-}}\s*$//e
 
     "Add space between \item elements.
     silent %s/\\item\_.\{-}\ze\(\n\n\|\\item\)/\0\r/e
     silent %s/\\item/1./e
 
     " If the cite is at the end of the line, except if 'in ' is before it, remove it
-    silent %s/\(in \)\@<!\\cite{.\{-}}\s*\././ge
+    silent %s/\(in\)\@<!\_s*\\cite{\_.\{-}}\s*\././ge
     " Else replace with name
-    silent %s/\\cite{.\{-}}/Paulus/ge
+    silent %s/\\cite{\_.\{-}}/Paulus/ge
 
 
     " Join all the lines together.
