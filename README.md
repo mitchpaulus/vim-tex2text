@@ -11,9 +11,14 @@ mistakes slip by.
 You'd like to use another tool for this grammar checking, but the raw
 Latex source is full of commands and the like. 
 
-PDF to text or Word is plain miserable. 
+PDF to text or Microsoft Word is plain miserable. 
 
 This plugin looks to solve this. 
+
+Again, this is meant to transform the
+Latex source into text that is good for grammar checkers. This actually
+changes words and numbering (obviously not on the original file). It is not
+meant to be software like _Pandoc_, for instance. 
 
 
 Solution
@@ -34,7 +39,8 @@ The things that this plugin does is:
 9. Remove equation-like environments (equation, array, multline...)
 10. Remove all comments
 11. Remove all `\usepackage` lines
-12. Change _pseudo_ degree sign `\(^{\circ}\)`'s to utf-8 ° sign.
+12. Change _pseudo_ degree sign `\(^{\circ}\)`'s to utf-8 ° sign, and `\%`
+    to a `%,` `\$` to a `$`, etc. 
 13. Change `\(\pm\)` to 'plus or minus'
 14. Smart formatting of itemized lists
 15. When all of this is done, join all paragraph lines, removing double
