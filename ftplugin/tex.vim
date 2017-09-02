@@ -1,5 +1,9 @@
 nnoremap <silent> <leader>ttt :<c-u>call <SID>RunTexToText()<cr>
 
+if exists(':TexToText') < 1
+    command TexToText call s:RunTexToText()
+endif
+
 if exists('*s:RunTexToText')
    finish 
 endif
