@@ -54,7 +54,7 @@ function! s:RunTexToText()
     setlocal noignorecase
     setlocal magic
 
-    let environmentsToDelete = ['landscape','figure','table','equation','multline','array','algorithm']
+    let environmentsToDelete = ['landscape','figure','table','equation','multline','array','align','algorithm']
     let singleLineCommandsToDelete = ['chapter','section','subsection','subsubsection','usepackage','newcommand','RequirePackage']
     let surroundingCommandsToLeaveInnerText = ['textit','textbf','textsuperscript','textsubscript','num']
     let commandsToDeleteInPlace = ['footnote']
@@ -72,9 +72,13 @@ function! s:RunTexToText()
         execute 'silent %s/\\begin{' . environment . '}\_.\{-}\\end{' . environment . '}.\{-}\n//e'
     endfor
 
+    " Replace siunitx commands.
     silent %s/\\SI{.\{-}}{.\{-}}/10 meters/ge
     silent %s/\\si{.\{-}}/meters/ge
+    silent %s/\\num{.\{-}}/10/ge
+    
     silent %s/\\ref{.\{-}}/1/ge
+    silent %s/\\eqref{.\{-}}/Eq. 1/ge
     "
     " Remove all comments
     silent %s/\(\\\)\@<!%.*//e
@@ -89,6 +93,8 @@ function! s:RunTexToText()
 
     " Remove degree Farenheits
     silent %s/\V\\(^\\{\?circ}\?\\)/°/ge
+    " Remove /indents 
+    silent %s/\\indent//ge
 
     silent %s/\\&/\&/ge
     silent %s/\\%/%/ge
@@ -111,7 +117,11 @@ function! s:RunTexToText()
     silent %s/\\item/1./e
 
     " If the cite is at the end of the line, except if 'in ' is before it, remove it
+<<<<<<< Updated upstream
     silent %s/\(in\)\@<!\_s*\\cite{\_.\{-}}\s*\././ge
+=======
+    silent %s/\(in\)\@<! \=\\cite{.\{-}}\s*\././ge
+>>>>>>> Stashed changes
     " Else replace with name
     silent %s/\\cite{\_.\{-}}/Paulus/ge
 
