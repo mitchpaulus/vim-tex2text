@@ -117,11 +117,7 @@ function! s:RunTexToText()
     silent %s/\\item/1./e
 
     " If the cite is at the end of the line, except if 'in ' is before it, remove it
-<<<<<<< Updated upstream
     silent %s/\(in\)\@<!\_s*\\cite{\_.\{-}}\s*\././ge
-=======
-    silent %s/\(in\)\@<! \=\\cite{.\{-}}\s*\././ge
->>>>>>> Stashed changes
     " Else replace with name
     silent %s/\\cite{\_.\{-}}/Paulus/ge
 
