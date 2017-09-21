@@ -54,9 +54,26 @@ function! s:RunTexToText()
     setlocal noignorecase
     setlocal magic
 
-    let environmentsToDelete = ['landscape','figure','table','equation','multline','array','align','algorithm']
-    let singleLineCommandsToDelete = ['chapter','section','subsection','subsubsection','usepackage','newcommand','RequirePackage']
-    let surroundingCommandsToLeaveInnerText = ['textit','textbf','textsuperscript','textsubscript','num']
+    let environmentsToDelete = ['landscape','figure','table','equation',
+                \ 'multline',
+                \ 'array',
+                \ 'align',
+                \ 'algorithm',
+                \ 'equation*']
+    let singleLineCommandsToDelete = ['chapter',
+                \ 'section',
+                \ 'subsection',
+                \ 'subsubsection',
+                \ 'usepackage',
+                \ 'newcommand',
+                \ 'RequirePackage',
+                \ 'usepackage']
+    let surroundingCommandsToLeaveInnerText = ['textit',
+                \ 'textbf',
+                \ 'textsuperscript',
+                \ 'textsubscript',
+                \ 'num',
+                \ 'edit']
     let commandsToDeleteInPlace = ['footnote']
 
     for commandToDeleteInPlace in commandsToDeleteInPlace
@@ -64,7 +81,10 @@ function! s:RunTexToText()
     endfor
 
     for singleLineCommand in singleLineCommandsToDelete
+        " Remove commands with no options
         execute 'silent %s/\s*\\' . singleLineCommand . '{.*//e'
+        " Remove commands with options.
+        execute 'silent %s/\v\s*\\' . singleLineCommand . '\[.{-}\]\{.*//e'
     endfor
 
     " Environments to delete
