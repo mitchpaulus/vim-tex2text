@@ -59,7 +59,7 @@ function! s:RunTexToText()
                 \ 'array',
                 \ 'align',
                 \ 'algorithm',
-                \ 'equation*']
+                \ 'equation\*']
     let singleLineCommandsToDelete = ['chapter',
                 \ 'section',
                 \ 'subsection',

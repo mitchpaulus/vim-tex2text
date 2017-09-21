@@ -1,0 +1,35 @@
+*vim-tex2text* Converts raw Latex source code to text file ready for
+grammar editors.
+
+This plugin is meant to take the raw Latex source file and turn it into
+something that a grammar checker such as Grammarly can understand and parse.
+The means that Latex commands need to be erased, modified, and adjusted to
+make this happen. 
+
+This is not meant to exactly reproduce what the PDF output would be in text
+format. It is simply meant to edit the text so that grammar checkers can work
+without manual effort. 
+
+========================================================================
+*Usage* 
+
+
+To use, run the TexToText command. By default, this is mapped to 
+
+<leader>ttt
+
+standing for [T]ex [t]o [t]ext.
+
+========================================================================
+*Contributing* 
+
+
+This is certainly a work in progress, and lots of different customizations
+would be required to meet all persons needs. If you come across something,
+please make an issue or pull request, so we can make this better!
+
+========================================================================
+*Bugs*
+
+I am fully aware of the current limitations. This just grew out of personal
+use, so please contribute if you'd like to work on this together!
