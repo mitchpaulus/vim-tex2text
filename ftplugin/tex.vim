@@ -54,12 +54,20 @@ function! s:RunTexToText()
     setlocal noignorecase
     setlocal magic
 
-    let environmentsToDelete = ['landscape','figure','table','equation',
+    " \* is for literal asterisk in starred environments.
+    let environmentsToDelete = ['landscape',
+                \ 'figure',
+                \ 'figure\*',
+                \ 'table',
+                \ 'table\*',
+                \ 'equation',
                 \ 'multline',
                 \ 'array',
                 \ 'align',
                 \ 'algorithm',
-                \ 'equation\*']
+                \ 'equation\*',
+                \ 'tabular'
+                \ ]
     let singleLineCommandsToDelete = ['chapter',
                 \ 'section',
                 \ 'subsection',
@@ -67,7 +75,10 @@ function! s:RunTexToText()
                 \ 'usepackage',
                 \ 'newcommand',
                 \ 'RequirePackage',
-                \ 'usepackage']
+                \ 'usepackage',
+                \ 'pgfplotsset',
+                \ 'documentclass'
+                \ ]
     let surroundingCommandsToLeaveInnerText = ['textit',
                 \ 'textbf',
                 \ 'textsuperscript',
