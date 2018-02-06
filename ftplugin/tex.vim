@@ -154,6 +154,7 @@ function! s:RunTexToText()
 
 
     " Join all the lines together.
+    silent %s/\v\s+$//
     silent setlocal tw=9999
     silent normal! gggqG
 
